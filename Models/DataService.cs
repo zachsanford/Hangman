@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -12,6 +13,13 @@ namespace Hangman.Models
     public class DataService
     {
         // Offline Data
+        public static string GenerateRandomOfflineWord()
+        {
+            string _file = File.ReadAllText(@"E:\zsanford\source\repos\Hangman\Data\OfflineData.json");
+            OfflineWords _words = JsonSerializer.Deserialize<OfflineWords>(_file);
+            Random _random = new Random();
+            return _words.Words[_random.Next(0, _words.Words.Length)];
+        }
 
         // Online Data
         public static string GenerateRandomOnlineWord()

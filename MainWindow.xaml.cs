@@ -24,7 +24,7 @@ namespace Hangman
         public MainWindow()
         {
             InitializeComponent();
-            secretWord = DataService.GenerateRandomOnlineWord();
+            secretWord = DataService.GenerateRandomOfflineWord();
             textBox.Focus();
             lblHangman.Content = hangmanPicures[hangmanPictureCount];
             lblWord.Content = DisplayHashedWord(secretWord);
