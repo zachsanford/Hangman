@@ -15,7 +15,15 @@ namespace Hangman.Models
         // Offline Data
         public static string GenerateRandomOfflineWord()
         {
-            string _file = File.ReadAllText(@"E:\zsanford\source\repos\Hangman\Data\OfflineData.json");
+            string _file;
+            try
+            {
+                _file = File.ReadAllText(@"..\..\..\Data\OfflineData.json");
+            }
+            catch (Exception)
+            {
+                _file = File.ReadAllText(@"Data\OfflineData.json");
+            }
             OfflineWords _words = JsonSerializer.Deserialize<OfflineWords>(_file);
             Random _random = new Random();
             return _words.Words[_random.Next(0, _words.Words.Length)];
