@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +25,16 @@ namespace Hangman
         public MainWindow()
         {
             InitializeComponent();
-            secretWord = DataService.GenerateRandomOfflineWord();
+
+            try
+            {
+                secretWord = DataService.GenerateRandomOnlineWord();
+            }
+            catch (Exception)
+            {
+                secretWord = DataService.GenerateRandomOfflineWord();
+            }
+
             textBox.Focus();
             lblHangman.Content = hangmanPicures[hangmanPictureCount];
             lblWord.Content = DisplayHashedWord(secretWord);
