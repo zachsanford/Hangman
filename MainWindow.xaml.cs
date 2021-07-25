@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Hangman.Models;
 
 namespace Hangman
 {
@@ -23,12 +24,13 @@ namespace Hangman
         public MainWindow()
         {
             InitializeComponent();
+            secretWord = DataService.GenerateRandomOnlineWord();
             textBox.Focus();
             lblHangman.Content = hangmanPicures[hangmanPictureCount];
-            lblWord.Content = DisplayHashedWord(testWord);
+            lblWord.Content = DisplayHashedWord(secretWord);
         }
 
-        private string testWord = "Dictionary";
+        private string secretWord;
         private int hangmanPictureCount = 0;
         private List<char> foundLetters = new() { '=' };
 
@@ -175,7 +177,7 @@ namespace Hangman
         private void ButtonPress(object sender, EventArgs e)
         {
             textBox.Focus();
-            lblWord.Content = CheckForLetter(textBox.Text.ToUpper().ToCharArray()[0], lblWord.Content.ToString(), testWord.ToUpper());
+            lblWord.Content = CheckForLetter(textBox.Text.ToUpper().ToCharArray()[0], lblWord.Content.ToString(), secretWord.ToUpper());
         }
     }
 }
