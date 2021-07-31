@@ -43,6 +43,7 @@ namespace Hangman
         private string secretWord;
         private int hangmanPictureCount = 0;
         private List<char> foundLetters = new() { '=' };
+        private List<char> usedLetters = new() { '=' };
 
         private string[] hangmanPicures = new string[]
         {
@@ -120,57 +121,84 @@ namespace Hangman
         // Find the letter
         private string CheckForLetter(char _userChar, string _currentWordStatus, string _secretWord)
         {
-            if (_secretWord.Contains(_userChar))
+            if (!usedLetters.Contains(_userChar))
             {
-                StringBuilder _returnString = new StringBuilder();
-                int _spacesCount = _secretWord.Length;
-                bool charFound = false;
-
-                if (!foundLetters.Contains(_userChar))
+                usedLetters.Add(_userChar);
+                if (_secretWord.Contains(_userChar))
                 {
-                    foundLetters.Add(_userChar);
-                }
+                    StringBuilder _returnString = new StringBuilder();
+                    int _spacesCount = _secretWord.Length;
+                    bool charFound = false;
 
-                foreach (char _c in _secretWord)
-                {
-                    charFound = false;
-                    foreach (char _fc in foundLetters)
+                    if (!foundLetters.Contains(_userChar))
                     {
-                        if (_fc == _c)
+                        foundLetters.Add(_userChar);
+                    }
+
+                    foreach (char _c in _secretWord)
+                    {
+                        charFound = false;
+                        foreach (char _fc in foundLetters)
                         {
-                            _returnString.Append(_fc);
+                            if (_fc == _c)
+                            {
+                                _returnString.Append(_fc);
+                                if (_spacesCount > 0)
+                                {
+                                    _returnString.Append(" ");
+                                    _spacesCount--;
+                                }
+                                charFound = true;
+                                break;
+                            }
+                        }
+
+                        if (!charFound)
+                        {
+                            _returnString.Append("__");
                             if (_spacesCount > 0)
                             {
                                 _returnString.Append(" ");
                                 _spacesCount--;
                             }
-                            charFound = true;
-                            break;
                         }
                     }
 
-                    if (!charFound)
+                    return _returnString.ToString();
+                }
+                else
+                {
+                    if (hangmanPictureCount < 5)
                     {
-                        _returnString.Append("__");
-                        if (_spacesCount > 0)
-                        {
-                            _returnString.Append(" ");
-                            _spacesCount--;
-                        }
+                        hangmanPictureCount++;
+                        lblHangman.Content = hangmanPicures[hangmanPictureCount];
+                        return _currentWordStatus;
+                    }
+                    else
+                    {
+                        hangmanPictureCount++;
+                        lblHangman.Content = hangmanPicures[hangmanPictureCount];
+                        MessageBox.Show($"You lose... The word was {_secretWord}");
+                        textBox.IsEnabled = false;
+                        button.IsEnabled = false;
+                        return _currentWordStatus;
                     }
                 }
-
-                return _returnString.ToString();
             }
             else
             {
-
-                if (hangmanPictureCount < 6)
-                {
-                    hangmanPictureCount++;
-                    lblHangman.Content = hangmanPicures[hangmanPictureCount];
-                }
                 return _currentWordStatus;
+            }
+        }
+
+        // Check for win
+        private void CheckForWin(string _inputString)
+        {
+            if (!_inputString.Contains("__"))
+            {
+                MessageBox.Show("You Win!");
+                textBox.IsEnabled = false;
+                button.IsEnabled = false;
             }
         }
 
@@ -188,6 +216,7 @@ namespace Hangman
         {
             textBox.Focus();
             lblWord.Content = CheckForLetter(textBox.Text.ToUpper().ToCharArray()[0], lblWord.Content.ToString(), secretWord.ToUpper());
+            CheckForWin(lblWord.Content.ToString());
         }
     }
 }
