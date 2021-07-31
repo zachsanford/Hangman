@@ -55,5 +55,7 @@ namespace Hangman.Models
                 }
             }            
         }
+
+        public record OfflineWords(string[] Words);
     }
 }
