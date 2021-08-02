@@ -156,6 +156,9 @@ namespace Hangman
         {
             if (!usedLetters.Contains(_userChar))
             {
+                UpdateCharBoard(_userChar);
+                lblUsedLetters.Content = DisplayUsedCharBoard(charBoard);
+
                 usedLetters.Add(_userChar);
                 if (_secretWord.Contains(_userChar))
                 {
@@ -240,7 +243,13 @@ namespace Hangman
         {
             if (charBoard.Contains(_userChar))
             {
-                
+                for (int i = 0; i < charBoard.Length; i++)
+                {
+                    if (_userChar == charBoard[i])
+                    {
+                        charBoard[i] = '-';
+                    }
+                }
             }
         }
 
