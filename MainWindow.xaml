@@ -23,6 +23,14 @@
         <Label x:Name="lblHangman" Content="Placeholder" HorizontalAlignment="Center" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="24" Height="264" Width="447" FontWeight="Normal"/>
         <Label x:Name="lblWord" Content="Label" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="24" Width="373" FontStretch="Normal" FontWeight="Normal"/>
         <Button x:Name="button" Click="ButtonPress" Content="Check Letter" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="153" Height="29" FontSize="20"/>
+        <Menu x:Name="menu" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="22">
+            <MenuItem Header="File">
+                <MenuItem Header="New Game" IsCheckable="False" Click="RestartGame" />
+                <Separator />
+                <MenuItem Header="Exit" IsCheckable="False" Click="ExitGame" />
+            </MenuItem>
+            <MenuItem Header="About" Click="ShowAbout" />
+        </Menu>
 
     </Grid>
 </Window>

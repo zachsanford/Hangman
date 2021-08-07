@@ -214,7 +214,7 @@ namespace Hangman
                     {
                         hangmanPictureCount++;
                         lblHangman.Content = hangmanPicures[hangmanPictureCount];
-                        MessageBox.Show($"You lose... The word was {_secretWord}");
+                        MessageBox.Show($"You lose... The word was {_secretWord}", "YOU LOSE");
                         textBox.IsEnabled = false;
                         button.IsEnabled = false;
                         return _currentWordStatus;
@@ -232,7 +232,7 @@ namespace Hangman
         {
             if (!_inputString.Contains("__"))
             {
-                MessageBox.Show("You Win!");
+                MessageBox.Show("You Win!", "Winner Winner Chicken Dinner");
                 textBox.IsEnabled = false;
                 button.IsEnabled = false;
             }
@@ -268,6 +268,49 @@ namespace Hangman
             textBox.Focus();
             lblWord.Content = CheckForLetter(textBox.Text.ToUpper().ToCharArray()[0], lblWord.Content.ToString(), secretWord.ToUpper());
             CheckForWin(lblWord.Content.ToString());
+        }
+
+        private void RestartGame(object sender, RoutedEventArgs e)
+        {
+            hangmanPictureCount = 0;
+            foundLetters.Clear();
+            foundLetters.Add('=');
+            usedLetters.Clear();
+            usedLetters.Add('=');
+
+            charBoard = new char[]
+            {
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+                'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                'Y', 'Z'
+            };
+
+            try
+            {
+                secretWord = DataService.GenerateRandomOnlineWord();
+            }
+            catch (Exception)
+            {
+                secretWord = DataService.GenerateRandomOfflineWord();
+            }
+
+            textBox.IsEnabled = true;
+            button.IsEnabled = true;
+            textBox.Focus();
+            lblHangman.Content = hangmanPicures[hangmanPictureCount];
+            lblUsedLetters.Content = DisplayUsedCharBoard(charBoard);
+            lblWord.Content = DisplayHashedWord(secretWord);
+        }
+
+        private void ExitGame(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ShowAbout(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("                           Hangman\n\n    Created By:                 Zach Sanford\n     Twitter:                     @zachsanford\n\n                         Version: 0.3", "About");
         }
     }
 }
