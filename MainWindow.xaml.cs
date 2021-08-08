@@ -41,6 +41,7 @@ namespace Hangman
             lblWord.Content = DisplayHashedWord(secretWord);
         }
 
+        private string version = "0.4";
         private string secretWord;
         private int hangmanPictureCount = 0;
         private List<char> foundLetters = new() { '=' };
@@ -310,7 +311,7 @@ namespace Hangman
 
         private void ShowAbout(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("                           Hangman\n\n    Created By:                 Zach Sanford\n     Twitter:                     @zachsanford\n\n                         Version: 0.3", "About");
+            MessageBox.Show($"                           Hangman\n\n    Created By:                 Zach Sanford\n     Twitter:                     @zachsanford\n\n                         Version: {version}", "About");
         }
     }
 }

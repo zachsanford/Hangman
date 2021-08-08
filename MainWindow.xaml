@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman"
         mc:Ignorable="d"
-        Title="Hangman" Height="700" MinHeight="700" Width="447" MinWidth="447">
+        Title="Hangman" Height="700" MinHeight="700" Width="447" MinWidth="447" Icon="/Hangman-Window.ico">
     <Grid>
 
         <Grid.RowDefinitions>
