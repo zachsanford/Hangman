@@ -56,6 +56,42 @@ namespace Hangman.Models
             }            
         }
 
+        // Get stats
+        public static Stats GetStats()
+        {
+            string _file;
+            try
+            {
+                _file = File.ReadAllText(@"..\..\..\Data\Stats.json");
+            }
+            catch (Exception)
+            {
+                _file = File.ReadAllText(@"Data\Stats.json");
+            }
+
+            Stats _stats = JsonSerializer.Deserialize<Stats>(_file);
+            return _stats;
+        }
+
+        // Set stats
+        public static void SetStats(int _wins, int _losses)
+        {
+            Stats _stats = new Stats(_wins, _losses);
+            string _path1 = @"Data\Stats.json";
+            string _path2 = @"..\..\..\Data\Stats.json";
+            string _json = JsonSerializer.Serialize(_stats);
+
+            if (File.Exists(_path1))
+            {
+                File.WriteAllText(_path1, _json);
+            } 
+            else
+            {
+                File.WriteAllText(_path2, _json);
+            }            
+        }
+
         public record OfflineWords(string[] Words);
+        public record Stats(int wins, int losses);
     }
 }
