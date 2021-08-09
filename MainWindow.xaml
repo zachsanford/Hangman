@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman"
         mc:Ignorable="d"
-        Title="Hangman" Height="700" MinHeight="700" Width="447" MinWidth="447" Icon="/Hangman-Window.ico">
+        Title="Hangman" Height="700" MinHeight="700" Width="550" MinWidth="550" Icon="/Hangman-Window.ico">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <TextBox x:Name="textBox" KeyDown="KeyPress" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="153" FontSize="20" Height="29"/>
         <Label x:Name="lblUsedLetters" Content="Placeholder" HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalContentAlignment="Center" FontSize="24" Grid.Row="1" Height="140" FontStretch="Normal" Width="auto"/>
-        <Label x:Name="lblHangman" Content="Placeholder" HorizontalAlignment="Center" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="24" Height="264" Width="447" FontWeight="Normal"/>
+        <Label x:Name="lblHangman" HorizontalAlignment="Center" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontSize="24" Height="264" Width="447" FontWeight="Normal" Margin="0,63,0,0"/>
         <Label x:Name="lblWord" Content="Label" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="24" Width="373" FontStretch="Normal" FontWeight="Normal"/>
         <Button x:Name="button" Click="ButtonPress" Content="Check Letter" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="153" Height="29" FontSize="20"/>
         <Menu x:Name="menu" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="22">
@@ -31,6 +31,7 @@
             </MenuItem>
             <MenuItem Header="About" Click="ShowAbout" />
         </Menu>
+        <Label x:Name="lblStats" Content="Label" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Width="530" FontSize="24" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

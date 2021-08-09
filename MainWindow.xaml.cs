@@ -36,6 +36,7 @@ namespace Hangman
             }
 
             textBox.Focus();
+            SetStatsLabel();
             lblHangman.Content = hangmanPicures[hangmanPictureCount];
             lblUsedLetters.Content = DisplayUsedCharBoard(charBoard);
             lblWord.Content = DisplayHashedWord(secretWord);
@@ -43,6 +44,9 @@ namespace Hangman
 
         private string version = "0.4";
         private string secretWord;
+        private int wins;
+        private int losses;
+        private double winPercent;
         private int hangmanPictureCount = 0;
         private List<char> foundLetters = new() { '=' };
         private List<char> usedLetters = new() { '=' };
@@ -216,6 +220,9 @@ namespace Hangman
                         hangmanPictureCount++;
                         lblHangman.Content = hangmanPicures[hangmanPictureCount];
                         MessageBox.Show($"You lose... The word was {_secretWord}", "YOU LOSE");
+                        losses += 1;
+                        DataService.SetStats(wins, losses);
+                        SetStatsLabel();
                         textBox.IsEnabled = false;
                         button.IsEnabled = false;
                         return _currentWordStatus;
@@ -234,6 +241,9 @@ namespace Hangman
             if (!_inputString.Contains("__"))
             {
                 MessageBox.Show("You Win!", "Winner Winner Chicken Dinner");
+                wins += 1;
+                DataService.SetStats(wins, losses);
+                SetStatsLabel();
                 textBox.IsEnabled = false;
                 button.IsEnabled = false;
             }
@@ -252,6 +262,22 @@ namespace Hangman
                     }
                 }
             }
+        }
+
+        // Set lblStats.Content
+        private void SetStatsLabel()
+        {
+            DataService.Stats _stats = DataService.GetStats();
+            wins = _stats.wins;
+            losses = _stats.losses;
+            if (wins == 0 && losses == 0)
+            {
+                winPercent = 0.00;
+            } else
+            {
+                winPercent = Math.Round(((double)_stats.wins / ((double)_stats.wins + (double)_stats.losses) * 100), 2);
+            }           
+            lblStats.Content = $"Wins: {wins} | Losses: {losses} | Win Percentage: {winPercent}%";
         }
 
         private void KeyPress(object sender, KeyEventArgs e)

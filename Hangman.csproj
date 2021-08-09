@@ -15,4 +15,6 @@
     <Resource Include="Hangman-Window.ico" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>
