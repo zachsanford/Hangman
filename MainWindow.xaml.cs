@@ -42,7 +42,7 @@ namespace Hangman
             lblWord.Content = DisplayHashedWord(secretWord);
         }
 
-        private string version = "0.4";
+        private string version = "0.5";
         private string secretWord;
         private int wins;
         private int losses;
@@ -110,6 +110,14 @@ namespace Hangman
             'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
             'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
             'Y', 'Z'
+        };
+
+        private readonly string[] acceptableKeys = new string[]
+        {
+            "A", "B", "C", "D", "E", "F", "G", "H",
+            "I", "J", "K", "L", "M", "N", "O", "P",
+            "Q", "R", "S", "T", "U", "V", "W", "X",
+            "Y", "Z"
         };
 
         // Display the word
@@ -282,7 +290,7 @@ namespace Hangman
 
         private void KeyPress(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && acceptableKeys.Any(x=>x.Contains(textBox.Text.ToUpper())))
             {
                 ButtonPress(sender, e);
             }

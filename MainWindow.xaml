@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Hangman" Height="700" MinHeight="700" Width="550" MinWidth="550" Icon="/Hangman-Window.ico">
     <Grid>
 
