@@ -292,9 +292,12 @@ namespace Hangman
 
         private void ButtonPress(object sender, EventArgs e)
         {
-            textBox.Focus();
-            lblWord.Content = CheckForLetter(textBox.Text.ToUpper().ToCharArray()[0], lblWord.Content.ToString(), secretWord.ToUpper());
-            CheckForWin(lblWord.Content.ToString());
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+                textBox.Focus();
+                lblWord.Content = CheckForLetter(textBox.Text.ToUpper().ToCharArray()[0], lblWord.Content.ToString(), secretWord.ToUpper());
+                CheckForWin(lblWord.Content.ToString());
+            }    
         }
 
         private void RestartGame(object sender, RoutedEventArgs e)
